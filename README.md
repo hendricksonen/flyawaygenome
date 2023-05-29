@@ -22,7 +22,7 @@ This is a description of the pipeline I've used to assemble nuclear genomes from
   - Racon
   - BUSCO
   - QUAST
-  - Bowtie2
+  - BWA-MEM2
 - Access to a HPC cluster with the following modules:
   - minimap2
   - Trimmomatic

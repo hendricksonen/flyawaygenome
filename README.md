@@ -28,6 +28,9 @@ This is a description of the pipeline I've used to assemble nuclear genomes from
   - Trimmomatic
 
 
+##Pipeline Steps
+
+
 ### Trimming ONT long reads
 
 

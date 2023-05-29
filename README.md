@@ -17,4 +17,5 @@ This is a description of the pipeline I've used to assemble nuclear genomes from
   - Minimap2
   - Trimmomatic
 
+### Trimming long reads
 

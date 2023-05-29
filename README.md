@@ -268,4 +268,4 @@ Set the parameters
 
      --include-unpolished  --window-length 500 --quality-threshold 10.0 --error-threshold 0.3  --match 3 --mismatch -5 --gap -4
      
-***Name the output as you wish your finalized genome to be named***
+### ***Name the output as you wish your finalized genome to be named***

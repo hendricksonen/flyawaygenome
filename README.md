@@ -66,6 +66,10 @@ From the CSV,
 
      grep "Unclassified"  wimp.output | awk '{print $2}' > wimpReadIDs.txt
      
+If multiple CSVs from multiple WIMP runs, select unlcassified and sort out duplicate read id's by
+
+     cat *wimp.output | grep "Unclassified" | awk '{print $2}' | sort | uniq > wimpReadIDs.txt
+     
 Upload wimpReadIDs.txt into Galaxy.
 
 Use the tool seqtk to sort only unclassified reads uisng wimpReadIDs.txt as list of seqIDs and reads.trimmed.fq as query reads. 

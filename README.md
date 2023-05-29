@@ -6,7 +6,7 @@ This is a description of the pipeline I've used to assemble nuclear genomes from
 ## Overview of pipeline
 
 
-![image](https://github.com/hendricksonen/flyawayhome/assets/113100255/3bed643a-8ed0-4ea4-b3b6-25042d1c9852)
+![image](https://github.com/hendricksonen/flyawayhome/assets/113100255/79b1fbd5-42bd-4d55-9f04-6d9590e14f52)
 
 
 ## You will need:

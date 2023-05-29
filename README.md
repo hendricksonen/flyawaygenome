@@ -127,11 +127,7 @@ Use the tool seqtk to sort only unclassified reads uisng farm.Ov.readids.txt as 
 
 On the Galaxy server, generate a preliminary assembly with Flye using the parameters
 
-     --nano-raw --iterations 2 --scaffold 
-
-Set --min-overlap to equal the mean fragment lengh of your reads. 
-
-Execute assembly.
+     --nano-raw --iterations 2 --scaffold --min-overlap mean fragment length of reads 
 
 *note, these are just guidelines. You may need to adjust assembly parameters and compare assembly QC to determine the best parameters to set for your data.*
 

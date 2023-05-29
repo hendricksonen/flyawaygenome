@@ -125,7 +125,7 @@ Use the tool seqtk to sort only unclassified reads uisng farm.Ov.readids.txt as 
 ### Assemble genome
 
 
-On the Galaxy server, generate a preliminary assembly with Flye using the read file eads.trimmed.wimp.farm.Ov.fq and the parameters
+On the Galaxy server, generate a preliminary assembly with Flye using the read file reads.trimmed.wimp.farm.Ov.fq and the parameters
 
      --nano-raw --iterations 2 --scaffold --min-overlap mean fragment length of reads 
 
@@ -159,7 +159,7 @@ Polishing with long reads increases the contiguity of the assembly. The steps fo
 
 ## First Long-read Polishing Step
 
-First, on the Galaxy server, map eads.trimmed.wimp.farm.Ov.fq to the draft genome using minimap2 with the parameters
+First, on the Galaxy server, map reads.trimmed.wimp.farm.Ov.fq to the draft genome using minimap2 with the parameters
 
      --map-ont
 
@@ -167,7 +167,7 @@ and set the output format to PAF.
 
 Name the output 'output1.minimap2'.
 
-On the Galaxy server, run Racon with the sequences file eads.trimmed.wimp.farm.Ov.fq, overlaps as 'output1.minimap2', and target sequences as the draft assembly.
+On the Galaxy server, run Racon with the sequences file reads.trimmed.wimp.farm.Ov.fq, overlaps as 'output1.minimap2', and target sequences as the draft assembly.
 
 Set the parameters
 
@@ -185,7 +185,7 @@ and set the output format to PAF.
 
 Name the output 'output2.minimap2'.
 
-On the Galaxy server, run Racon with the sequences file eads.trimmed.wimp.farm.Ov.fq, overlaps as 'output2.minimap2', and target sequences as polish1.racon.
+On the Galaxy server, run Racon with the sequences file reads.trimmed.wimp.farm.Ov.fq, overlaps as 'output2.minimap2', and target sequences as polish1.racon.
 
 Set the parameters
 
@@ -197,6 +197,75 @@ Name the output polish2.racon
 ### Polish with Short Reads
 
 
-The first step will be trimming the raw Illumina reads. This will be performed on the HPC cluster using the following commands
+## Trim and format sequence files
 
+The first step will be trimming the raw Illumina reads. This will be performed on the HPC cluster using the following slurm script
+
+     #!/bin/bash
+     #SBATCH --cpus-per-task 1
+     #SBATCH --mem-per-cpu=16384
+     #SBATCH --partition=day
+     #SBATCH --time=24:00:00
+
+
+     module load Trimmomatic
+
+     java -jar $EBROOTTRIMMOMATIC/trimmomatic-0.39.jar PE -threads 2 -phred33 -trimlog $i\.trim.log read1.fastq.gz read2.fastq.gz 1P.fq.gz 1U.fq.gz 2P.fq.gz 2U.fq.gz ILLUMINACLIP:NexteraPE-PE.fa:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:125
+     rm *trim.log
+     done
+    
+Upload the output files 1P.fq.gz and 2P.fq.gz to the Galaxy server. 
+
+The forward and reverse reads will need to be combined into one file. To do this, use the Galaxy tool **FASTQ interlacer**. 
+
+Set 'Type of paired-end datasets' = 2 separate datasets and the left hand mates as 1P.fq.gz and the right hand mates as 2P.fq.gz.
+
+Run and name the output interleaved.fq.gz
+
+## First Short-read Polishing Step
+
+First, map interleaved.fq.gz to polish2.racon using BWA-MEM2 with the parameters
+
+     'Will you select a reference genome from your history or use a built-in index?' = 'Use a genome from history and build index' 'Single or Paired-end reads' = 'Paired interleaved' -I 150 'Select analysis mode' = '1. Simple Illumina Mode' 'BAM sorting mode' = 'Sort by chromosomal coordinates'
+ 
+ Name the output output1.bwamem2
+ 
+On the Galaxy server, run Racon with the sequences file interleaved.fq.gz, overlaps as 'output1.bwamem2', and target sequences as polish2.racon.
+
+Set the parameters
+
+     --include-unpolished  --window-length 500 --quality-threshold 10.0 --error-threshold 0.3  --match 3 --mismatch -5 --gap -4
      
+Name the output polish3.racon
+
+## Second Short-read Polishing Step
+
+Map interleaved.fq.gz to polish2.racon using BWA-MEM2 with the parameters
+
+     'Will you select a reference genome from your history or use a built-in index?' = 'Use a genome from history and build index' 'Single or Paired-end reads' = 'Paired interleaved' -I 150 'Select analysis mode' = '1. Simple Illumina Mode' 'BAM sorting mode' = 'Sort by chromosomal coordinates'
+ 
+ Name the output output2.bwamem2
+ 
+On the Galaxy server, run Racon with the sequences file interleaved.fq.gz, overlaps as 'output2.bwamem2', and target sequences as polish3.racon.
+
+Set the parameters
+
+     --include-unpolished  --window-length 500 --quality-threshold 10.0 --error-threshold 0.3  --match 3 --mismatch -5 --gap -4
+     
+Name the output polish4.racon
+
+## Third Short-read Polishing Step
+
+Map interleaved.fq.gz to polish2.racon using BWA-MEM2 with the parameters
+
+     'Will you select a reference genome from your history or use a built-in index?' = 'Use a genome from history and build index' 'Single or Paired-end reads' = 'Paired interleaved' -I 150 'Select analysis mode' = '1. Simple Illumina Mode' 'BAM sorting mode' = 'Sort by chromosomal coordinates'
+ 
+ Name the output output3.bwamem2
+ 
+On the Galaxy server, run Racon with the sequences file interleaved.fq.gz, overlaps as 'output3.bwamem2', and target sequences as polish4.racon.
+
+Set the parameters
+
+     --include-unpolished  --window-length 500 --quality-threshold 10.0 --error-threshold 0.3  --match 3 --mismatch -5 --gap -4
+     
+***Name the output as you wish your finalized genome to be named***

@@ -157,7 +157,7 @@ Polishing with long reads increases the contiguity of the assembly. The steps fo
 4. Repeat step 2 for further polishing.
 5. Repeat as necessary.
 
-## First Long-read Polishing Step
+#### First Long-read Polishing Step
 
 First, on the Galaxy server, map reads.trimmed.wimp.farm.Ov.fq to the draft genome using minimap2 with the parameters
 
@@ -175,7 +175,7 @@ Set the parameters
      
 Name the output polish1.racon
 
-## Second Long-read Polishing Step
+#### Second Long-read Polishing Step
 
 On the Galaxy server, map eads.trimmed.wimp.farm.Ov.fq to polish1.racon using minimap2 with the parameters
 
@@ -197,7 +197,7 @@ Name the output polish2.racon
 ### Polish with Short Reads
 
 
-## Trim and format sequence files
+#### Trim and format sequence files
 
 The first step will be trimming the raw Illumina reads. This will be performed on the HPC cluster using the following slurm script
 
@@ -222,7 +222,7 @@ Set 'Type of paired-end datasets' = 2 separate datasets and the left hand mates 
 
 Run and name the output interleaved.fq.gz
 
-## First Short-read Polishing Step
+#### First Short-read Polishing Step
 
 First, map interleaved.fq.gz to polish2.racon using BWA-MEM2 with the parameters
 
@@ -238,7 +238,7 @@ Set the parameters
      
 Name the output polish3.racon
 
-## Second Short-read Polishing Step
+#### Second Short-read Polishing Step
 
 Map interleaved.fq.gz to polish2.racon using BWA-MEM2 with the parameters
 
@@ -254,7 +254,7 @@ Set the parameters
      
 Name the output polish4.racon
 
-## Third Short-read Polishing Step
+#### Third Short-read Polishing Step
 
 Map interleaved.fq.gz to polish2.racon using BWA-MEM2 with the parameters
 

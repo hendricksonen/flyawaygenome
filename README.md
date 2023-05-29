@@ -9,7 +9,7 @@ This is a description of the pipeline I've used to assemble nuclear genomes from
 
 ## You will need:
 
-- Oxford Nanopore Technologies long-read data
+- Oxford Nanopore Technologies long-read data (GridION/MinION)
 - Illumina shotgun sequencing short-read data
 - [EPI2ME](https://labs.epi2me.io/installation/) 
 - Access to a [Galaxy Project server](https://usegalaxy.org.au/) and an account
@@ -17,5 +17,11 @@ This is a description of the pipeline I've used to assemble nuclear genomes from
   - Minimap2
   - Trimmomatic
 
-### Trimming long reads
+### Trimming ONT long reads
+Because ONT reads are separated into multiple files, the first step is concatenating all fastq_pass reads into one file.
 
+      cat ~/fastq_pass/*fastq.gz > catSeq.fastq.gz 
+      
+Upload concatenated reads to Galaxy Server.
+
+Run Porechop using default parameters and concatenated read file as input.

@@ -7,7 +7,7 @@
 
 module load Trimmomatic
 
-##unique sample id's here
+## unique sample id's here
 ID=""
 
 for i in $ID

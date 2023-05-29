@@ -2,12 +2,15 @@
 
 This is a description of the pipeline I've used to assemble nuclear genomes from blackflies and a collection of the commands for doing so.
 
+
 ## Overview of pipeline
+
 
 ![image](https://github.com/hendricksonen/flyawayhome/assets/113100255/3bed643a-8ed0-4ea4-b3b6-25042d1c9852)
 
 
 ## You will need:
+
 
 - Oxford Nanopore Technologies long-read data (GridION/MinION)
 - Illumina shotgun sequencing short-read data
@@ -15,15 +18,18 @@ This is a description of the pipeline I've used to assemble nuclear genomes from
 - Access to a [Galaxy Project server](https://usegalaxy.org.au/) and an account. Will use these tools:
   - Porechop
   - seqtk
-  - FLYE
-  - RACON
+  - Flye
+  - Racon
   - BUSCO
   - QUAST
+  - Bowtie2
 - Access to a HPC cluster with the following modules:
   - minimap2
   - Trimmomatic
 
+
 ### Trimming ONT long reads
+
 
 Because ONT reads are separated into multiple files, the first step is concatenating all fastq_pass reads into one file.
 
@@ -35,7 +41,9 @@ Run Porechop using default parameters (porechopONT) and concatenated read file a
 
 Download Porechop output.
 
+
 ### Filtering out human and microbial contamination
+
 
 For this, you will use EPI2ME, the ONT analysis software. This does require an ONT account.
 
@@ -61,7 +69,9 @@ Use the tool seqtk to sort only unclassified reads uisng wimpReadIDs.txt as list
 
 Gzip the output if not zipped already (use tool 'compress') and name the output reads.trimmed.wimp.fq.gz and download.
 
+
 ### Filtering out other potential contaminant reads
+
 
 For this step, you will filter out potential contaminant reads from other eukaryotes and organelle DNA. 
 
@@ -98,7 +108,9 @@ Upload farm.Ov.readids.txt onto the Galaxy server.
 
 Use the tool seqtk to sort only unclassified reads uisng farm.Ov.readids.txt as list of seqIDs and reads.trimmed.wimp.fq as query reads. Name the output reads.trimmed.wimp.farm.Ov.fq
 
+
 ### Assemble genome
+
 
 On the Galaxy server, generate a preliminary assembly with Flye using the parameters
 
@@ -110,7 +122,9 @@ Execute assembly.
 
 *note, these are just guidelines. You may need to adjust assembly parameters and compare assembly QC to determine the best parameters to set for your data.*
 
+
 ### Assembly QC 
+
 
 On the Galaxy server, assess the quality of your assembly.
 
@@ -121,8 +135,22 @@ Run BUSCO using Metaeuk with the parameters.
 Run QUAST to generate assembly statistics with default parameters.
 
      --est-ref-size 250000000 --min-identity 95.0 --min-contig 500 --min-alignment 65 --ambiguity-usage 'one' --ambiguity-score 0.99 --local-mis-size 200   --contig-thresholds '0,1000' --extensive-mis-size 1000 --scaffold-gap-max-size 1000 --unaligned-part-size 500 --x-for-Nx 90
-     
+ 
+ 
 ### Polish with Long Reads
 
-On the Galaxy server
+Polishing with long reads increases the contiguity of the assembly. The steps for polishing using Racon are 
+
+1. Map reads to genome contigs.
+2. Use mapping and coverage to close gaps with Racon. 
+3. Map reads to polished contigs.
+4. Repeat step 2 for further polishing.
+5. Repeat as necessary.
+
+
+First, on the Galaxy server, map the ONT reads used for genome assembly to the draft genome using minimap2 with the parameters
+
+     --ava-ont 
+
      
+

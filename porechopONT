@@ -1,4 +1,0 @@
-## This is for adapter trimming of ONT raw reads
-## In Galaxy, choose the tool 'Porechop' and your raw read set and use default parameters. Command using default parameters is listed below. 
-
-porechop -i '/mnt/tmp/files/staging/6197000/inputs/dataset_13633509.dat' --format 'fastq.gz' --barcode_threshold '75.0' --barcode_diff '5.0'   --adapter_threshold '90.0' --check_reads '10000' --scoring_scheme '3,-6,-5,-2' --end_size '150' --min_trim_size '4' --extra_end_trim '2' --end_threshold '75.0'   --middle_threshold '85.0' --extra_middle_trim_good_side '10' --extra_middle_trim_bad_side '100' --min_split_read_size '1000' -o 'out.fastq.gz'

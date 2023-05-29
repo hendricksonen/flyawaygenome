@@ -90,7 +90,7 @@ For this step, you will filter out potential contaminant reads from other eukary
 
 For blood-feeding orgnaisms like Simulium spp., filtering out reads from potential food sources is important. A study from [Lamberton et al. (2016)](https://parasitesandvectors.biomedcentral.com/articles/10.1186/s13071-016-1703-2) assessed the species on which blackflies were feeding by identifying the organism from which the fly had taken a blood meal. Using these results and information about the animals in the surrounding areas of Ethiopia, compile a folder of reference sequences that contain the following genomes: 
 
-*note, this is most easily done directly from the cluster*
+*note, this is most easily done directly from the cluster, and genomes can be changed depending on sample collection site / purpose*
 
   - GCF_002263795.2 (cow)
   - GCF_000003025.6 (pig)

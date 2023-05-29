@@ -23,6 +23,7 @@ This is a description of the pipeline I've used to assemble nuclear genomes from
   - BUSCO
   - QUAST
   - BWA-MEM2
+  - Compress file(s) ((this is just gzip))
 - Access to a HPC cluster with the following modules:
   - minimap2
   - Trimmomatic

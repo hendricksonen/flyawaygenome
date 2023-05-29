@@ -125,7 +125,7 @@ Use the tool seqtk to sort only unclassified reads uisng farm.Ov.readids.txt as 
 ### Assemble genome
 
 
-On the Galaxy server, generate a preliminary assembly with Flye using the parameters
+On the Galaxy server, generate a preliminary assembly with Flye using the read file eads.trimmed.wimp.farm.Ov.fq and the parameters
 
      --nano-raw --iterations 2 --scaffold --min-overlap mean fragment length of reads 
 
@@ -148,6 +148,7 @@ Run QUAST to generate assembly statistics with default parameters.
  
 ### Polish with Long Reads
 
+
 Polishing with long reads increases the contiguity of the assembly. The steps for polishing using Racon are 
 
 1. Map reads to genome contigs.
@@ -156,10 +157,46 @@ Polishing with long reads increases the contiguity of the assembly. The steps fo
 4. Repeat step 2 for further polishing.
 5. Repeat as necessary.
 
+## First Long-read Polishing Step
 
-First, on the Galaxy server, map the ONT reads used for genome assembly to the draft genome using minimap2 with the parameters
+First, on the Galaxy server, map eads.trimmed.wimp.farm.Ov.fq to the draft genome using minimap2 with the parameters
 
-     --ava-ont 
+     --map-ont
+
+and set the output format to PAF.
+
+Name the output 'output1.minimap2'.
+
+On the Galaxy server, run Racon with the sequences file eads.trimmed.wimp.farm.Ov.fq, overlaps as 'output1.minimap2', and target sequences as the draft assembly.
+
+Set the parameters
+
+     --include-unpolished  --window-length 500 --quality-threshold 10.0 --error-threshold 0.3  --match 3 --mismatch -5 --gap -4
+     
+Name the output polish1.racon
+
+## Second Long-read Polishing Step
+
+On the Galaxy server, map eads.trimmed.wimp.farm.Ov.fq to polish1.racon using minimap2 with the parameters
+
+     --map-ont
+
+and set the output format to PAF.
+
+Name the output 'output2.minimap2'.
+
+On the Galaxy server, run Racon with the sequences file eads.trimmed.wimp.farm.Ov.fq, overlaps as 'output2.minimap2', and target sequences as polish1.racon.
+
+Set the parameters
+
+     --include-unpolished  --window-length 500 --quality-threshold 10.0 --error-threshold 0.3  --match 3 --mismatch -5 --gap -4
+     
+Name the output polish2.racon
+
+
+### Polish with Short Reads
+
+
+The first step will be trimming the raw Illumina reads. This will be performed on the HPC cluster using the following commands
 
      
-

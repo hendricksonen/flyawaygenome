@@ -41,7 +41,7 @@ Because ONT reads are separated into multiple files, the first step is concatena
       
 Upload concatenated reads to Galaxy Server.
 
-Run Porechop using default parameters and concatenated read file as input.
+Run Porechop using default parameters and catReads.fq.gz as input.
 
      --format 'fastq.gz' --barcode_threshold '75.0' --barcode_diff '5.0' --adapter_threshold '90.0' --check_reads '10000' --scoring_scheme '3,-6,-5,-2' --end_size '150' --min_trim_size '4' --extra_end_trim '2' --end_threshold '75.0' --middle_threshold '85.0' --extra_middle_trim_good_side '10' --extra_middle_trim_bad_side '100' --min_split_read_size '1000'
 
@@ -49,13 +49,13 @@ Save output as reads.trimmed.fq
 
 Gzip reads.trimmed.fq using 'Compress file(s)' tool.
 
-Download reads.trimmed.fq
+Download reads.trimmed.fq.gz
 
 
 ### Filtering out human and microbial contamination
 
 
-For this, you will use EPI2ME, the ONT analysis software. This does require an ONT account.
+For this, you will use EPI2ME, the ONT analysis software. This requires an ONT account.
 
 In EPI2ME, start an analysis and select the reads.trimmed.fq file as input.
 
@@ -65,7 +65,7 @@ Change minimum length filter to 500.
 
 Accept & Start.
 
-**Human and microbial reads will be "Classified" and all others will be "Unclassified"**
+**Human and microbial reads will be 'Classified' and all others will be 'Unclassified'**
 
 When completed, select 'View Report' and download CSV report.
 

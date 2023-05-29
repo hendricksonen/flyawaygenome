@@ -4,7 +4,8 @@ This is a description of the pipeline I've used to assemble nuclear genomes from
 
 ## Overview of pipeline
 
-![image](https://github.com/hendricksonen/flyawayhome/assets/113100255/95ff26dc-7b65-4a3d-985a-574286fe642b)
+![image](https://github.com/hendricksonen/flyawayhome/assets/113100255/3bed643a-8ed0-4ea4-b3b6-25042d1c9852)
+
 
 ## You will need:
 

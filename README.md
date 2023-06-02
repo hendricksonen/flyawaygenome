@@ -121,7 +121,7 @@ Then select only the unmapped read id's
   
 Upload farm.Ov.readids.txt onto the Galaxy server. 
 
-Use the tool seqtk to sort only unclassified reads uisng farm.Ov.readids.txt as list of seqIDs and reads.trimmed.wimp.fq as query reads. Name the output reads.trimmed.wimp.farm.Ov.fq
+Use the tool seqtk to sort only unclassified reads using farm.Ov.readids.txt as list of seqIDs and reads.trimmed.wimp.fq as query reads. Name the output reads.trimmed.wimp.farm.Ov.fq
 
 
 ### Assemble genome

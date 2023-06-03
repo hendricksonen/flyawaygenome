@@ -128,7 +128,7 @@ Then select only the unmapped read id's.
      ### This will remoce any reads that mapped once from the list of unmapped reads
      awk 'NR==FNR { b[$0] = 1; next } !b[$0]' unqiuemappedreads.txt uniqueunmappedatleastonce.txt > farm.Ov.uniq.unmapped.readids.txt 
   
-Upload farm.Ov.readids.txt onto the Galaxy server. 
+Upload farm.Ov.uniq.unmapped.readids.txt onto the Galaxy server. 
 
 Use the tool seqtk to sort only unclassified reads using farm.Ov.readids.txt as list of seqIDs and reads.trimmed.wimp.fq as query reads. Name the output reads.trimmed.wimp.farm.Ov.fq
 

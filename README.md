@@ -121,8 +121,10 @@ Then select only the unmapped read id's.
      
      ##This will pull out the read ID's of the reads that map at least once
      awk '$2 != 4 {print($0)}' reads.trimmed.wimp.farm.Ov.alignment.sam | awk '{print $1}' | sort | uniq | grep -v "@PG" > unqiuemappedreads.txt
+     
      ### This will pull out the read ID's of the reads that are unmapped
      awk '$2 == 4 {print($0)}' reads.trimmed.wimp.farm.Ov.alignment.sam | awk '{print $1}' | sort | uniq > uniqueunmappedatleastonce.txt
+     
      ### This will remoce any reads that mapped once from the list of unmapped reads
      awk 'NR==FNR { b[$0] = 1; next } !b[$0]' unqiuemappedreads.txt uniqueunmappedatleastonce.txt > farm.Ov.uniq.unmapped.readids.txt 
   

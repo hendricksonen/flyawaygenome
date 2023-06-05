@@ -120,7 +120,7 @@ Then select only the unmapped read id's.
      ### Because the reference genome is so large, minimap2 will split the reference genomes and index separately, meaning that reads will be mapped (or unmapped) multiple times. We want reads that never map. 
      
      ##This will pull out the read ID's of the reads that map at least once
-     awk '$2 != 4 {print($0)}' reads.trimmed.wimp.farm.Ov.alignment.sam | awk '{print $1}' | sort | uniq | grep -v "@PG" > unqiuemappedreads.txt
+     awk '$2 != 4 {print($1, $2)}' reads.trimmed.wimp.farm.Ov.alignment.sam | awk '{print $1}' | sort | uniq | grep -v "@PG" > unqiuemappedreads.txt
      
      ### This will pull out the read ID's of the reads that are unmapped
      awk '$2 == 4 {print($0)}' reads.trimmed.wimp.farm.Ov.alignment.sam | awk '{print $1}' | sort | uniq > uniqueunmappedatleastonce.txt
@@ -128,6 +128,11 @@ Then select only the unmapped read id's.
      ### This will remoce any reads that mapped once from the list of unmapped reads
      awk 'NR==FNR { b[$0] = 1; next } !b[$0]' unqiuemappedreads.txt uniqueunmappedatleastonce.txt > farm.Ov.uniq.unmapped.readids.txt 
   
+  
+If there are issues with the above when assembling later on (i.e., incorrect fastq format), do
+
+      awk '$2 == 4 {print($1, $2)}' reads.trimmed.wimp.farm.Ov.alignment.sam | awk '{a[$1]+=$2} END {for(i in a) print i,a[i] }' | awk '$2 == 20 {print($1)}' > farm.Ov.uniq.unmapped.readids.txt
+     
 Upload farm.Ov.uniq.unmapped.readids.txt onto the Galaxy server. 
 
 Use the tool seqtk to sort only unclassified reads using farm.Ov.readids.txt as list of seqIDs and reads.trimmed.wimp.fq as query reads. Name the output reads.trimmed.wimp.farm.Ov.fq

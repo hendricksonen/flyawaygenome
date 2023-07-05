@@ -18,6 +18,7 @@ This is a description of the pipeline I've used to assemble nuclear genomes from
 - [EPI2ME](https://labs.epi2me.io/installation/) 
 - Access to a [Galaxy Project server](https://usegalaxy.org.au/) and an account. Will use these tools:
   - Porechop
+  - filtlong
   - seqtk
   - Flye
   - Racon

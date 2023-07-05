@@ -1,6 +1,6 @@
 # Hybrid Nuclear Genome Assembly
 
-This is a description of the pipeline I've used to assemble nuclear genomes from blackflies and a collection of the slurm scripts for doing so.
+This is a description of the pipeline I've used to assemble nuclear genomes from blackflies and a collection of the slurm scripts for doing so. This work has not yet been peer-reviewed.
 
 
 ## Overview of pipeline

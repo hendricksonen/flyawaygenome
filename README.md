@@ -252,8 +252,10 @@ First, map interleaved.fq.gz to polish2.racon using BWA-MEM2 with the parameters
      'Will you select a reference genome from your history or use a built-in index?' = 'Use a genome from history and build index' 'Single or Paired-end reads' = 'Paired interleaved' -I 150 'Select analysis mode' = '1. Simple Illumina Mode' 'BAM sorting mode' = 'Sort by chromosomal coordinates'
  
  Name the output output1.bwamem2
+
+This file will need to be converted to a SAM file format
  
-On the Galaxy server, run Racon with the sequences file interleaved.fq.gz, overlaps as 'output1.bwamem2', and target sequences as polish2.racon.
+On the Galaxy server, run Racon with the sequences file interleaved.fq.gz, overlaps in SAM file format as 'output1.bwamem2', and target sequences as polish2.racon.
 
 Set the parameters
 

@@ -77,17 +77,21 @@ Accept & Start.
 
 When completed, select 'View Report' and download CSV report.
 
-From the CSV, 
+To convert CSV to TSV 
 
-     grep "Unclassified"  wimp.output | awk '{print $2}' > wimpReadIDs.txt
+     sed 's/,/\t/g' wimp_output.csv > wimp_output.tsv
+
+From the TSV, 
+
+     grep "Unclassified"  wimp_output.tsv | awk '{print $2}' > wimpReadIDs.txt
      
 If multiple CSVs from multiple WIMP runs, select unlcassified and sort out duplicate read id's by
 
-     cat *wimp.output | grep "Unclassified" | awk '{print $2}' | sort | uniq > wimpReadIDs.txt
+     cat *wimp_output.tsv | grep "Unclassified" | awk '{print $2}' | sort | uniq > wimpReadIDs.txt
      
 Upload wimpReadIDs.txt into Galaxy.
 
-Use the tool seqtk to sort only unclassified reads uisng wimpReadIDs.txt as list of seqIDs and reads.trimmed.fq as query reads. 
+Use the subseq function of the tool seqtk to sort only unclassified reads uisng wimpReadIDs.txt as list of seqIDs and reads.trimmed.fq as query reads. 
 
 Gzip the output if not zipped already (use tool 'compress') and name the output reads.trimmed.wimp.fq.gz and download.
 
